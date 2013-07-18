@@ -12,8 +12,8 @@ for i in $HOME/.vim $HOME/.vimrc $HOME/.gvimrc; do [ -e $i ] && mv $i $i.$today;
 
 echo "cloning dot-vimrc"
 git clone --recursive -b xw git://github.com/xw2423/dot-vimrc.git $endpath
-ln -sf $endpath/.vimrc $HOME/.vimrc
-ln -sf $endpath/.gitconfig $HOME
+ln -sf $endpath/vimrc $HOME/.vimrc
+ln -sf $endpath/gitconfig $HOME/.gitconfig
 
 echo "installing vundle"
 git clone git://github.com/gmarik/vundle.git $endpath/bundle/vundle
