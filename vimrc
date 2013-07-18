@@ -1,6 +1,9 @@
 source ~/.vim/bundles.vim
 
 " encoding dectection
+set enc=utf-8
+set fenc=utf-6
+set fencs=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
 set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin1
 
 " enable filetype dectection and ft specific plugin/indent
@@ -9,12 +12,19 @@ filetype plugin indent on
 " enable syntax hightlight and completion
 syntax on
 
+"The default leader is '\', but many people prefer ',' as it's in a standard
+let mapleader = ','
+
 "--------
 " Vim UI
 "--------
 " color scheme
 set background=dark
-color vividchalk
+color solarized
+let g:solarized_termtrans=1
+let g:solarized_termcolors=256
+let g:solarized_contrast="high"
+let g:solarized_visibility="high"
 
 " highlight current line
 au WinLeave * set nocursorline nocursorcolumn
@@ -26,6 +36,7 @@ set incsearch
 "set highlight 	" conflict with highlight current line
 set ignorecase
 set smartcase
+set hlsearch    " highlight search terms
 
 " editor settings
 set history=1000
@@ -46,6 +57,16 @@ set laststatus=2                                                  " use 2 lines 
 set matchtime=2                                                   " show matching bracket for 0.2 seconds
 set matchpairs+=<:>                                               " specially for html
 " set relativenumber
+set viewoptions=folds,options,cursor,unix,slash                   " better unix / windows compatibility
+set shortmess+=filmnrxoOtT                                        " abbrev. of messages (avoids 'hit enter')
+set hidden                                                        " allow buffer switching without saving
+set list
+set listchars=tab:,.,trail:.,extends:#,nbsp:.                     " Highlight problematic whitespace
+set splitbelow
+set foldmethod=marker
+
+" Remove trailing whitespaces and ^M chars
+autocmd FileType c,cpp,java,php,javascript,python,twig,xml,yml autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
 
 " Default Indentation
 set autoindent
@@ -98,13 +119,13 @@ let g:rbpt_max = 16
 autocmd Syntax lisp,scheme,clojure,racket RainbowParenthesesToggle
 
 " tabbar
-let g:Tb_MaxSize = 2
-let g:Tb_TabWrap = 1
+" let g:Tb_MaxSize = 2
+" let g:Tb_TabWrap = 1
 
-hi Tb_Normal guifg=white ctermfg=white
-hi Tb_Changed guifg=green ctermfg=green
-hi Tb_VisibleNormal ctermbg=252 ctermfg=235
-hi Tb_VisibleChanged guifg=green ctermbg=252 ctermfg=white
+" hi Tb_Normal guifg=white ctermfg=white
+" hi Tb_Changed guifg=green ctermfg=green
+" hi Tb_VisibleNormal ctermbg=252 ctermfg=235
+" hi Tb_VisibleChanged guifg=green ctermbg=252 ctermfg=white
 
 " easy-motion
 let g:EasyMotion_leader_key = '<Leader>'
@@ -144,10 +165,12 @@ endif
 let NERDChristmasTree=0
 let NERDTreeWinSize=30
 let NERDTreeChDirMode=2
-let NERDTreeIgnore=['\~$', '\.pyc$', '\.swp$']
-" let NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$',  '\~$']
+let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
 let NERDTreeShowBookmarks=1
-let NERDTreeWinPos = "right"
+let NERDTreeShowHidden=1
+let NERDTreeQuitOnOpen=1
+let NERDTreeWinPos = "left"
+map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
 
 " nerdcommenter
 let NERDSpaceDelims=1
@@ -193,21 +216,23 @@ let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
 
 " Keybindings for plugin toggle
 nmap <F5> :TagbarToggle<cr>
-nmap <F6> :NERDTreeToggle<cr>
-nmap <F3> :GundoToggle<cr>
-nmap <F4> :IndentGuidesToggle<cr>
+" nmap <F3> :GundoToggle<cr>
+" nmap <F4> :IndentGuidesToggle<cr>
 nmap  <D-/> :
-nnoremap <leader>a :Ack
+" nnoremap <leader>a :Ack
 nnoremap <leader>v V`]
+
+"ctags
+set tags=./tags;/,~/.vimtags
 
 "------------------
 " Useful Functions
 "------------------
 " easier navigation between split windows
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
+nnoremap <c-j> <c-w>j<c-w>_
+nnoremap <c-k> <c-w>k<c-w>_
+nnoremap <c-h> <c-w>h<c-w>_
+nnoremap <c-l> <c-w>l<c-w>_
 
 " When editing a file, always jump to the last cursor position
 autocmd BufReadPost *
@@ -226,13 +251,25 @@ nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
 " eggcache vim
 nnoremap ; :
-:command W w
-:command WQ wq
-:command Wq wq
-:command Q q
-:command Qa qa
-:command QA qa
+cmap W w
+cmap WQ wq
+cmap Wq wq
+cmap Q q
+cmap Qa qa
+cmap QA qa
 
+" Easier horizontal scrolling
+map zl zL
+map zh zH
+
+" Yank from the cursor to the end of the line, to be consistent with C and D.
+nnoremap Y y$
+
+"exchange line
+nmap <C-Up> ddkP
+nmap <C-Down> ddp
+vmap <C-Up> xkP`[V`]
+vmap <C-Down> xp`[V`]
 " for macvim
 if has("gui_running")
     set go=aAce  " remove toolbar
@@ -253,4 +290,26 @@ if has("gui_running")
     map <D-8> 8gt
     map <D-9> 9gt
     map <D-0> :tablast<CR>
+    colo torte
+    set enc=cp936
+    set langmenu=zh_CN.UTF-8
+    source $VIMRUNTIME/delmenu.vim
+endif
+
+"cscope
+if has("cscope")
+    set cscopetag
+    set csto=0
+    if filereadable("cscope.out")
+        cs add cscope.out
+    endif
+    set csverb
+    nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+    nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+    nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
 endif
