@@ -269,6 +269,14 @@ nmap <C-Up> ddkP
 nmap <C-Down> ddp
 vmap <C-Up> xkP`[V`]
 vmap <C-Down> xp`[V`]
+
+" Bash like keys for the command line
+cnoremap <C-A> <Home>
+cnoremap <C-E> <End>
+cnoremap <C-K> <C-U>
+cnoremap <C-P> <Up>
+cnoremap <C-N> <Down>
+
 " for macvim
 if has("gui_running")
     set go=aAce  " remove toolbar
