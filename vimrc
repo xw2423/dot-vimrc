@@ -174,9 +174,6 @@ let NERDSpaceDelims=1
 " nmap <D-/> :NERDComToggleComment<cr>
 let NERDCompactSexyComs=1
 
-" emmet-vim
-let g:user_emmet_leader_key='<C-j>'
-
 " powerline
 "let g:Powerline_symbols = 'fancy'
 
