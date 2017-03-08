@@ -2,8 +2,7 @@ source ~/.vim/bundles.vim
 
 " encoding dectection
 set enc=utf-8
-set fenc=utf-8
-set fencs=utf-8,cp936,ucs-bom
+set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin1
 
 " enable filetype dectection and ft specific plugin/indent
 filetype plugin indent on
@@ -44,9 +43,10 @@ set nofoldenable                                                  " disable fold
 set confirm                                                       " prompt when existing from an unsaved file
 set backspace=indent,eol,start                                    " More powerful backspacing
 set t_Co=256                                                      " Explicitly tell vim that the terminal has 256 colors "
+set mouse=a                                                       " use mouse in all modes
 set report=0                                                      " always report number of lines changed                "
 " set nowrap                                                        " dont wrap lines
-" set scrolloff=3                                                   " 5 lines above/below cursor when scrolling
+" set scrolloff=5                                                   " 5 lines above/below cursor when scrolling
 set number                                                        " show line numbers
 set showmatch                                                     " show matching bracket (briefly jump)
 set showcmd                                                       " show typed command in status bar
@@ -174,6 +174,9 @@ let NERDSpaceDelims=1
 " nmap <D-/> :NERDComToggleComment<cr>
 let NERDCompactSexyComs=1
 
+" ZenCoding
+" let g:user_emmet_expandabbr_key='<C-j>'
+
 " powerline
 "let g:Powerline_symbols = 'fancy'
 
@@ -198,9 +201,13 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType c setlocal omnifunc=ccomplete#Complete
+if !exists('g:neocomplcache_omni_patterns')
+  let g:neocomplcache_omni_patterns = {}
+endif
+let g:neocomplcache_omni_patterns.erlang = '[a-zA-Z]\|:'
 
 " SuperTab
-"let g:SuperTabDefultCompletionType='context'
+" let g:SuperTabDefultCompletionType='context'
 let g:SuperTabDefaultCompletionType = '<C-X><C-U>'
 let g:SuperTabRetainCompletionType=2
 
@@ -209,7 +216,10 @@ set wildignore+=*/tmp/*,*.so,*.o,*.a,*.obj,*.swp,*.zip,*.pyc,*.pyo,*.class,.DS_S
 let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
 
 " Keybindings for plugin toggle
+" nnoremap <F2> :set invpaste paste?<CR>
+" set pastetoggle=<F2>
 nmap <F5> :TagbarToggle<cr>
+" nmap <F6> :NERDTreeToggle<cr>
 " nmap <F3> :GundoToggle<cr>
 " nmap <F4> :IndentGuidesToggle<cr>
 nmap  <D-/> :
@@ -237,20 +247,26 @@ autocmd BufReadPost *
       \ endif
 
 " w!! to sudo & write a file
-cmap w!! w !sudo tee >/dev/null %
+cmap w!! %!sudo tee >/dev/null %
 
 " Quickly edit/reload the vimrc file
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
+" sublime key bindings
+nmap <D-]> >>
+nmap <D-[> <<
+vmap <D-[> <gv
+vmap <D-]> >gv
+
 " eggcache vim
 nnoremap ; :
-cmap W w
-cmap WQ wq
-cmap Wq wq
-cmap Q q
-cmap Qa qa
-cmap QA qa
+:command W w
+:command WQ wq
+:command Wq wq
+:command Q q
+:command Qa qa
+:command QA qa
 
 " Easier horizontal scrolling
 map zl zL
@@ -280,7 +296,6 @@ if has("gui_running")
     set showtabline=2
     set columns=140
     set lines=40
-    set mouse=a
     noremap <D-M-Left> :tabprevious<cr>
     noremap <D-M-Right> :tabnext<cr>
     map <D-1> 1gt

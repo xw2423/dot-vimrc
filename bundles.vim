@@ -12,11 +12,12 @@ Bundle 'gmarik/vundle'
 " Code Completions
 "------------------
 Bundle 'Shougo/neocomplcache'
-Bundle 'honza/vim-snippets'
-Bundle 'ervandew/supertab'
-"Bundle 'honza/snipmate-snippets'
 Bundle 'mattn/emmet-vim'
 Bundle 'Raimondi/delimitMate'
+Bundle 'ervandew/supertab'
+" snippets
+Bundle 'garbas/vim-snipmate'
+Bundle 'honza/vim-snippets'
 "------ snipmate dependencies -------
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'tomtom/tlib_vim'
@@ -82,7 +83,7 @@ Bundle 'tpope/vim-markdown'
 " Bundle 'tpope/vim-endwise'
 
 "------- Go ----------
-" Bundle 'jnwhiteh/vim-golang'
+" Bundle 'fatih/vim-go'
 
 "------- FPs ------
 " Bundle 'kien/rainbow_parentheses.vim'

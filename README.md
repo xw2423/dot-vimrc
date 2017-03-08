@@ -51,7 +51,7 @@ sudo apt-get install vim-gtk               # Ubuntu
 #### Sometimes we need to jump to previous positions to copy/paste or do some fixes:
 ## Fast navigation
 
-* [matchit](http://github.com/tsaleh/vim-matchit) - Extended % matching for HTML, LaTeX, and many other languages.
+* [matchit](http://github.com/edsono/vim-matchit) - Extended % matching for HTML, LaTeX, and many other languages.
 * [EasyMotion](https://github.com/Lokaltog/vim-easymotion) - Vim motions on speed!
 
 ### Tutorial
@@ -235,7 +235,7 @@ Clone in Mac
 
 Thst's it!
 
-For installation on Windows, please refer to this post: http://yoxyue.com/2012/10/17/gVIM-on-win7/ (Thanks to [yoxyue](https://github.com/yoxyue))
+For installation on Windows, please refer to this post: http://blog.yoxyue.com/post/gvim-on-win7 (Thanks to [yoxyue](https://github.com/yoxyue))
 
 ## How to manage this vimrc?
 
