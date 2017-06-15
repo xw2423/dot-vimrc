@@ -317,8 +317,10 @@ endif
 
 "cscope
 if has("cscope")
-    set cscopetag
-    set csto=0
+    set csprg=/usr/bin/cscope
+    set csto=1
+    set cst
+    set nocsverb
     if filereadable("cscope.out")
         cs add cscope.out
     endif
