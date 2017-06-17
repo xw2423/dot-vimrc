@@ -13,6 +13,8 @@ syntax on
 "The default leader is '\', but many people prefer ',' as it's in a standard
 let mapleader = ','
 
+set shell=bash
+
 "--------
 " Vim UI
 "--------
@@ -128,7 +130,7 @@ autocmd Syntax lisp,scheme,clojure,racket RainbowParenthesesToggle
 let g:EasyMotion_leader_key = '<Leader>'
 
 " Tagbar
-let g:tagbar_left=1
+let g:tagbar_left=0
 let g:tagbar_width=30
 let g:tagbar_autofocus = 1
 let g:tagbar_sort = 0
@@ -167,7 +169,6 @@ let NERDTreeShowBookmarks=1
 let NERDTreeShowHidden=1
 let NERDTreeQuitOnOpen=1
 let NERDTreeWinPos = "left"
-map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
 
 " nerdcommenter
 let NERDSpaceDelims=1
@@ -220,6 +221,8 @@ let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
 " set pastetoggle=<F2>
 nmap <F5> :TagbarToggle<cr>
 " nmap <F6> :NERDTreeToggle<cr>
+noremap <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
+inoremap <C-e> <ESC>:NERDTreeToggle<CR>:NERDTreeMirror<CR>
 " nmap <F3> :GundoToggle<cr>
 " nmap <F4> :IndentGuidesToggle<cr>
 nmap  <D-/> :
@@ -288,7 +291,34 @@ cnoremap <C-K> <C-U>
 cnoremap <C-P> <Up>
 cnoremap <C-N> <Down>
 
-" for macvim
+" simple surround
+vmap " S"
+vmap ' S'
+vmap ` S`
+vmap [ S[
+vmap ( S(
+vmap { S{
+vmap } S}
+vmap ] S]
+vmap ) S)
+
+" switch tab
+noremap <leader>1 1gt
+noremap <leader>2 2gt
+noremap <leader>3 3gt
+noremap <leader>4 4gt
+noremap <leader>5 5gt
+noremap <leader>6 6gt
+noremap <leader>7 7gt
+noremap <leader>8 8gt
+noremap <leader>9 9gt
+noremap <leader>0 :tablast<CR>
+noremap <leader>t :tabnew<CR>
+noremap <leader>g :tabclose<CR>
+noremap <tab> :tabn<CR>
+noremap <s-tab> :tabp<CR>
+
+" for gui
 if has("gui_running")
     set mouse=a
     set go=aAce  " remove toolbar
@@ -299,18 +329,7 @@ if has("gui_running")
     set lines=40
     noremap <D-M-Left> :tabprevious<cr>
     noremap <D-M-Right> :tabnext<cr>
-    map <D-1> 1gt
-    map <D-2> 2gt
-    map <D-3> 3gt
-    map <D-4> 4gt
-    map <D-5> 5gt
-    map <D-6> 6gt
-    map <D-7> 7gt
-    map <D-8> 8gt
-    map <D-9> 9gt
-    map <D-0> :tablast<CR>
     colo torte
-    set enc=cp936
     set langmenu=zh_CN.UTF-8
     source $VIMRUNTIME/delmenu.vim
 endif
