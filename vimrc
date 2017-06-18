@@ -219,8 +219,8 @@ let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
 " Keybindings for plugin toggle
 " nnoremap <F2> :set invpaste paste?<CR>
 " set pastetoggle=<F2>
-nmap <F6> :TagbarToggle<cr>
-nmap <F5> :NERDTreeToggle<cr>
+nmap <F5> :TagbarToggle<cr>
+nmap <F4> :NERDTreeToggle<cr>
 noremap <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
 inoremap <C-e> <ESC>:NERDTreeToggle<CR>:NERDTreeMirror<CR>
 " nmap <F3> :GundoToggle<cr>
