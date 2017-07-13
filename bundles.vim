@@ -91,6 +91,9 @@ Bundle 'tpope/vim-markdown'
 " Bundle 'vim-scripts/VimClojure'
 " Bundle 'rosstimson/scala-vim-support'
 
+"------- nginx conf ------
+Bundle 'chr4/nginx.vim'
+
 "--------------
 " Color Schemes
 "--------------
