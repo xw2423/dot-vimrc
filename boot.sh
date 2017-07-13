@@ -14,6 +14,7 @@ echo "cloning dot-vimrc"
 git clone --recursive -b xw https://github.com/xw2423/dot-vimrc.git $endpath
 ln -sf $endpath/vimrc $HOME/.vimrc
 ln -sf $endpath/gitconfig $HOME/.gitconfig
+ln -sf $endpath/gitconfig $HOME/.screenrc
 
 echo "installing vundle"
 git clone https://github.com/gmarik/vundle.git $endpath/bundle/vundle
