@@ -91,6 +91,8 @@ autocmd Syntax javascript set syntax=jquery   " JQuery syntax support
 let g:html_indent_inctags = "html,body,head,tbody"
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
+" vue
+au BufRead,BufNewFile *.vue set filetype=html
 
 "-----------------
 " Plugin settings
