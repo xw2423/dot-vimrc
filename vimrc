@@ -279,6 +279,13 @@ map zh zH
 
 " Yank from the cursor to the end of the line, to be consistent with C and D.
 nnoremap Y y$
+" delete to black hole register, not going to clipboard etc
+nnoremap <leader>D "_D
+nnoremap <leader>dd "_dd
+vnoremap <leader>d "_d
+nnoremap <leader>x "_x
+nnoremap <leader>X "_X
+vnoremap <leader>x "_x
 
 "exchange line
 nmap <C-Up> ddkP
