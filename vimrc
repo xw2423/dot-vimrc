@@ -12,12 +12,16 @@ syntax on
 
 "The default leader is '\', but many people prefer ',' as it's in a standard
 let mapleader = ','
+let g:mapleader = ','
 
 set shell=bash
 
 "--------
 " Vim UI
 "--------
+"" Turn on the WiLd menu
+set wildmenu
+
 " color scheme
 set background=dark
 color solarized
@@ -37,6 +41,8 @@ set incsearch
 set ignorecase
 set smartcase
 set hlsearch    " highlight search terms
+" Disable highlight when <leader><cr> is pressed
+map <silent> <leader><cr> :noh<cr>
 
 " editor settings
 set history=1000
@@ -180,9 +186,6 @@ let NERDCompactSexyComs=1
 " ZenCoding
 " let g:user_emmet_expandabbr_key='<C-j>'
 
-" powerline
-"let g:Powerline_symbols = 'fancy'
-
 " NeoComplCache
 let g:neocomplcache_enable_at_startup=1
 let g:neoComplcache_disableautocomplete=1
@@ -234,6 +237,15 @@ nnoremap <leader>v V`]
 "ctags
 set tags=./tags;/,~/.vimtags
 
+" lightline
+let g:lightline = {
+    \ 'active': {
+    \   'left': [ [ 'mode', 'paste' ],
+    \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+    \ },
+    \ 'component_function': {'gitbranch': 'fugitive#head'},
+    \ 'tabline': {'left': [ [ 'tabs' ] ]}
+    \ }
 "------------------
 " Useful Functions
 "------------------
@@ -323,9 +335,12 @@ noremap <leader>8 8gt
 noremap <leader>9 9gt
 noremap <leader>0 :tablast<CR>
 noremap <leader>t :tabnew<CR>
-noremap <leader>g :tabclose<CR>
+noremap <leader>m :tabmove<CR>
 noremap <tab> :tabn<CR>
 noremap <s-tab> :tabp<CR>
+" record current tab no to return prev tab when closed
+au TabEnter * let g:current_tab_no=tabpagenr()
+noremap <leader>g :tabc<CR>g:current_tab_no."gt"<CR>
 
 " for gui
 if has("gui_running")
@@ -362,3 +377,28 @@ if has("cscope")
     nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
     nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
 endif
+
+" Visual mode pressing * or # searches for the current selection
+vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
+vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
+function! CmdLine(str)
+    exe "menu Foo.Bar :" . a:str
+    emenu Foo.Bar
+    unmenu Foo
+endfunction
+function! VisualSelection(direction, extra_filter) range
+    let l:saved_reg = @"
+    execute "normal! vgvy"
+
+    let l:pattern = escape(@", "\\/.*'$^~[]")
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+    if a:direction == 'gv'
+        call CmdLine("Ack '" . l:pattern . "' " )
+    elseif a:direction == 'replace'
+        call CmdLine("%s" . '/'. l:pattern . '/')
+    endif
+
+    let @/ = l:pattern
+    let @" = l:saved_reg
+endfunction
