@@ -188,18 +188,25 @@ let NERDCompactSexyComs=1
 
 " NeoComplCache
 let g:neocomplcache_enable_at_startup=1
-let g:neoComplcache_disableautocomplete=1
+let g:neoComplcache_disable_auto_complete=1
 "let g:neocomplcache_enable_underbar_completion = 1
 "let g:neocomplcache_enable_camel_case_completion = 1
 let g:neocomplcache_enable_smart_case=1
 let g:neocomplcache_min_syntax_length = 3
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 set completeopt-=preview
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
+" let g:neosnippet#disable_runtime_snippets = {'_':1}
+" let g:neosnippet#enable_snipmate_compatibility = 1
+" let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 
-imap <C-k> <Plug>(neocomplcache_snippets_force_expand)
-smap <C-k> <Plug>(neocomplcache_snippets_force_expand)
-imap <C-l> <Plug>(neocomplcache_snippets_force_jump)
-smap <C-l> <Plug>(neocomplcache_snippets_force_jump)
 
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -339,8 +346,8 @@ noremap <leader>m :tabmove<CR>
 noremap <tab> :tabn<CR>
 noremap <s-tab> :tabp<CR>
 " record current tab no to return prev tab when closed
-au TabEnter * let g:current_tab_no=tabpagenr()
-noremap <leader>g :tabc<CR>g:current_tab_no."gt"<CR>
+au TabLeave * let g:prev_tab_no=tabpagenr()-1
+noremap <leader>g :tabc<CR>:exec g:prev_tab_no"tabn"<CR>
 
 " for gui
 if has("gui_running")
