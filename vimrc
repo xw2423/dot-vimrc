@@ -412,7 +412,7 @@ endfunction
 
 "php-cs-fixer
 " options: --rules (default:@PSR2)
-let g:php_cs_fixer_rules = "@PSR2,binary_operator_spaces,no_whitespace_before_comma_in_array,whitespace_after_comma_in_array"
+let g:php_cs_fixer_rules = "@PSR2,binary_operator_spaces,no_whitespace_before_comma_in_array,whitespace_after_comma_in_array,ternary_operator_spaces"
 " options: --cache-file
 " let g:php_cs_fixer_cache = ".php_cs.cache"
 " options: --config
